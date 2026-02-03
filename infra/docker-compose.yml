@@ -1,0 +1,16 @@
+﻿services:
+  mongo:
+    image: mongo:7
+    ports:
+      - "27018:27017"
+
+  api:
+    build: ../apps/api
+    environment:
+      PORT: 4300
+      MONGO_URI: mongodb://mongo:27017/capstonehub
+      CORS_ORIGIN: http://localhost:5174
+    depends_on:
+      - mongo
+    ports:
+      - "4300:4300"
