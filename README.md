@@ -8,6 +8,7 @@ CapstoneHub is a student capstone project management platform for teams and supe
 - Milestone tracking
 - Submission and review workflow
 - Dashboard insights
+- Shared contract package for API and Web type alignment
 
 ## Stack
 - Frontend: React + Vite
