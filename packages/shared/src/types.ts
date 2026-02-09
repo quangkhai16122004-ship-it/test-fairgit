@@ -1,6 +1,7 @@
 export type UserRole = "student" | "supervisor" | "admin";
 
 export type ProjectStatus = "planning" | "active" | "review" | "done";
+export type ProjectMemberRole = "leader" | "member" | "reviewer";
 export type MilestoneStatus = "todo" | "in_progress" | "blocked" | "done";
 export type ReviewStatus = "pending" | "approved" | "changes_requested";
 
