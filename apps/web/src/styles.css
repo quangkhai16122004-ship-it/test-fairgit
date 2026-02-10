@@ -1,11 +1,13 @@
-﻿body {
+body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
   background: #f4f6f8;
   color: #102030;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 .layout {
   max-width: 1180px;
@@ -23,4 +25,91 @@
 .grid {
   display: grid;
   gap: 12px;
+}
+
+input,
+select,
+button,
+textarea {
+  border: 1px solid #c7d0da;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 14px;
+}
+
+button {
+  background: #203864;
+  color: #fff;
+  border-color: #203864;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px 8px;
+}
+
+.table tbody tr {
+  border-top: 1px solid #eef2f6;
+}
+
+.status-chip {
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+}
+
+.status-planning {
+  background: #f7f4ea;
+  border-color: #ecd79a;
+  color: #755e1f;
+}
+
+.status-active {
+  background: #eaf4fe;
+  border-color: #9dc3e6;
+  color: #1f4b7a;
+}
+
+.status-review {
+  background: #eef0fc;
+  border-color: #bec8f5;
+  color: #3d4f9b;
+}
+
+.status-done {
+  background: #eaf8ef;
+  border-color: #9ed7af;
+  color: #1f6d39;
+}
+
+.progress-track {
+  height: 7px;
+  background: #eef2f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3e75c3, #4b9da3);
+}
+
+.empty-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #5f6b7a;
 }
