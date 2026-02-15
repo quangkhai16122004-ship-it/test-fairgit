@@ -27,6 +27,12 @@ body {
   gap: 12px;
 }
 
+.kpi-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 input,
 select,
 button,
@@ -112,4 +118,10 @@ button:disabled {
   margin-top: 10px;
   font-size: 13px;
   color: #5f6b7a;
+}
+
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
