@@ -17,3 +17,8 @@ CapstoneHub is a student capstone project management platform for teams and supe
 - Backend: Node.js + Express
 - Database: MongoDB
 
+## Getting Started
+- Run contributor setup guide in `docs/contributor-setup.md`
+- API health: `GET http://localhost:4300/health`
+- Web app: `http://localhost:5174`
+
