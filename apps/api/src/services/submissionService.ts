@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 import { Submission } from "../models/Submission.js";
 
 const CreateSubmissionSchema = z.object({
@@ -15,12 +15,25 @@ export async function createSubmission(body: unknown) {
   return Submission.create(input);
 }
 
-export async function listSubmissions(projectCode: string) {
-  return Submission.find({ projectCode }).sort({ createdAt: -1 }).lean();
+export async function listSubmissions(projectCode: string, reviewStatus?: string) {
+  const filter: Record<string, unknown> = { projectCode };
+  if (reviewStatus) filter.reviewStatus = reviewStatus;
+  return Submission.find(filter).sort({ createdAt: -1 }).lean();
 }
 
-export async function reviewSubmission(id: string, reviewStatus: "pending" | "approved" | "changes_requested", score?: number) {
-  const update: Record<string, unknown> = { reviewStatus };
+export async function reviewSubmission(
+  id: string,
+  reviewStatus: "pending" | "approved" | "changes_requested",
+  score: number | undefined,
+  reviewerEmail: string,
+  reviewNotes: string | undefined
+) {
+  const update: Record<string, unknown> = {
+    reviewStatus,
+    reviewerEmail,
+    reviewedAt: new Date(),
+  };
   if (typeof score === "number") update.score = score;
+  if (reviewNotes) update.reviewNotes = reviewNotes;
   return Submission.findByIdAndUpdate(id, update, { new: true }).lean();
 }
