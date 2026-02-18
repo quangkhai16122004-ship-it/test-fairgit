@@ -6,6 +6,7 @@ import { AuthProvider } from "./lib/auth";
 import { DashboardPage } from "./pages/DashboardPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProjectForm } from "./pages/ProjectForm";
+import { SubmissionsPage } from "./pages/SubmissionsPage";
 import "./styles.css";
 
 export function App() {
@@ -26,6 +27,7 @@ export function App() {
             <nav style={{ display: "flex", gap: 12, alignItems: "center" }}>
               <Link to="/">Dashboard</Link>
               <Link to="/projects">Projects</Link>
+              <Link to="/submissions">Submissions</Link>
               <Link to="/login">Login</Link>
             </nav>
           </header>
@@ -41,6 +43,7 @@ export function App() {
                 </div>
               )}
             />
+            <Route path="/submissions" element={<SubmissionsPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </div>
