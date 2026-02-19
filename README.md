@@ -1,6 +1,6 @@
 ﻿# CapstoneHub
 
-CapstoneHub is a student capstone project management platform for teams and supervisors.
+CapstoneHub is a student capstone project management platform for teams, supervisors, and teaching assistants.
 
 ## Modules
 - Authentication and role management
