@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { Submission } from "../models/Submission.js";
+import { writeActivity } from "./activityLogService.js";
 
 const CreateSubmissionSchema = z.object({
   projectCode: z.string().min(2),
@@ -12,7 +13,16 @@ const CreateSubmissionSchema = z.object({
 
 export async function createSubmission(body: unknown) {
   const input = CreateSubmissionSchema.parse(body);
-  return Submission.create(input);
+  const submission = await Submission.create(input);
+  await writeActivity({
+    projectCode: input.projectCode,
+    actorEmail: input.submittedBy,
+    action: "submission.created",
+    entityType: "submission",
+    entityId: String(submission._id),
+    detail: `Submission ${submission.title} created`,
+  });
+  return submission;
 }
 
 export async function listSubmissions(projectCode: string, reviewStatus?: string) {
@@ -35,5 +45,18 @@ export async function reviewSubmission(
   };
   if (typeof score === "number") update.score = score;
   if (reviewNotes) update.reviewNotes = reviewNotes;
-  return Submission.findByIdAndUpdate(id, update, { new: true }).lean();
+  const submission = await Submission.findByIdAndUpdate(id, update, { new: true }).lean();
+
+  if (submission) {
+    await writeActivity({
+      projectCode: String(submission.projectCode),
+      actorEmail: reviewerEmail,
+      action: "submission.reviewed",
+      entityType: "submission",
+      entityId: String(submission._id),
+      detail: `Review status changed to ${reviewStatus}`,
+    });
+  }
+
+  return submission;
 }
