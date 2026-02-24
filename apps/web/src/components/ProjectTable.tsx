@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import type { ProjectItem } from "../lib/api";
 
 type Props = {
@@ -55,7 +56,9 @@ export function ProjectTable({ projects }: Props) {
         <tbody>
           {filtered.map((project) => (
             <tr key={project._id}>
-              <td>{project.code}</td>
+              <td>
+                <Link to={`/projects/${project.code}`}>{project.code}</Link>
+              </td>
               <td>{project.title}</td>
               <td>{project.teamName}</td>
               <td>{project.ownerEmail}</td>

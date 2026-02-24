@@ -5,6 +5,7 @@ import { fetchDashboard, fetchProjects, type ProjectItem } from "./lib/api";
 import { AuthProvider } from "./lib/auth";
 import { DashboardPage } from "./pages/DashboardPage";
 import { LoginPage } from "./pages/LoginPage";
+import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 import { ProjectForm } from "./pages/ProjectForm";
 import { SubmissionsPage } from "./pages/SubmissionsPage";
 import "./styles.css";
@@ -43,6 +44,7 @@ export function App() {
                 </div>
               )}
             />
+            <Route path="/projects/:code" element={<ProjectDetailPage />} />
             <Route path="/submissions" element={<SubmissionsPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>

@@ -20,6 +20,18 @@ export type SubmissionItem = {
   score?: number;
 };
 
+export type MilestoneItem = {
+  _id: string;
+  projectCode: string;
+  title: string;
+  dueDate: string;
+  status: "todo" | "in_progress" | "blocked" | "done";
+  assigneeEmail: string;
+  priority: "low" | "medium" | "high";
+  points: number;
+  notes: string;
+};
+
 const API_BASE = "http://localhost:4300";
 
 export async function fetchDashboard() {
@@ -32,6 +44,11 @@ export async function fetchProjects() {
   const res = await fetch(`${API_BASE}/projects`);
   if (!res.ok) throw new Error("Failed to load projects");
   return res.json() as Promise<ProjectItem[]>;
+}
+
+export async function fetchProjectByCode(code: string) {
+  const projects = await fetchProjects();
+  return projects.find((item) => item.code === code) ?? null;
 }
 
 export async function createProject(input: {
@@ -71,4 +88,11 @@ export async function createSubmission(input: {
   });
   if (!res.ok) throw new Error("Failed to create submission");
   return res.json() as Promise<SubmissionItem>;
+}
+
+export async function fetchMilestones(projectCode: string) {
+  const query = new URLSearchParams({ projectCode }).toString();
+  const res = await fetch(`${API_BASE}/milestones?${query}`);
+  if (!res.ok) throw new Error("Failed to load milestones");
+  return res.json() as Promise<MilestoneItem[]>;
 }
