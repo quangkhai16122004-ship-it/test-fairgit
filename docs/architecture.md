@@ -10,5 +10,5 @@ CapstoneHub supports capstone teams from registration to milestone review.
 - Dashboard aggregation
 
 ## Data model highlights
-- projectCode is used as tenant boundary for simple simulation
-- submission is linked to milestoneId and reviewer state
+- `projectCode` is used as tenant boundary for this simulation setup.
+- Submission is linked to `milestoneId` and reviewer state.
