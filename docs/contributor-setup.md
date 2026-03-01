@@ -21,6 +21,11 @@ pnpm dev:api
 pnpm dev:web
 ```
 
-## 5. Test with default login
+## 5. Seed demo project data (optional)
+```bash
+pnpm --filter api seed
+```
+
+## 6. Test with default login
 - Email: `team.lead@capstonehub.dev`
 - Role: `student`

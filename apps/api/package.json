@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "seed": "tsx src/scripts/seedDemo.ts"
   },
   "dependencies": {
     "@capstonehub/shared": "workspace:*",
