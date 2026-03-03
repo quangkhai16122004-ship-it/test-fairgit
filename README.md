@@ -10,6 +10,7 @@ CapstoneHub is a student capstone project management platform for teams, supervi
 - Team member allocation and workload planning
 - Submission and review workflow
 - Dashboard insights
+- Contributor leaderboard by reviewed submissions and score
 - Shared contract package for API and Web type alignment
 
 ## Stack
