@@ -4,6 +4,7 @@ import { ProjectTable } from "./components/ProjectTable";
 import { fetchDashboard, fetchProjects, type ProjectItem } from "./lib/api";
 import { AuthProvider } from "./lib/auth";
 import { DashboardPage } from "./pages/DashboardPage";
+import { LeaderboardPage } from "./pages/LeaderboardPage";
 import { LoginPage } from "./pages/LoginPage";
 import { ProjectDetailPage } from "./pages/ProjectDetailPage";
 import { ProjectForm } from "./pages/ProjectForm";
@@ -29,6 +30,7 @@ export function App() {
               <Link to="/">Dashboard</Link>
               <Link to="/projects">Projects</Link>
               <Link to="/submissions">Submissions</Link>
+              <Link to="/leaderboard">Leaderboard</Link>
               <Link to="/login">Login</Link>
             </nav>
           </header>
@@ -46,6 +48,7 @@ export function App() {
             />
             <Route path="/projects/:code" element={<ProjectDetailPage />} />
             <Route path="/submissions" element={<SubmissionsPage />} />
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </div>

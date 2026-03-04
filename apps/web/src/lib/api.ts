@@ -32,6 +32,13 @@ export type MilestoneItem = {
   notes: string;
 };
 
+export type LeaderboardEntry = {
+  email: string;
+  submissionCount: number;
+  reviewedCount: number;
+  avgScore: number;
+};
+
 const API_BASE = "http://localhost:4300";
 
 export async function fetchDashboard() {
@@ -95,4 +102,11 @@ export async function fetchMilestones(projectCode: string) {
   const res = await fetch(`${API_BASE}/milestones?${query}`);
   if (!res.ok) throw new Error("Failed to load milestones");
   return res.json() as Promise<MilestoneItem[]>;
+}
+
+export async function fetchLeaderboard(projectCode: string) {
+  const query = new URLSearchParams({ projectCode }).toString();
+  const res = await fetch(`${API_BASE}/leaderboard?${query}`);
+  if (!res.ok) throw new Error("Failed to load leaderboard");
+  return res.json() as Promise<LeaderboardEntry[]>;
 }
