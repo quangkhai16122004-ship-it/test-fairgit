@@ -25,10 +25,16 @@ export async function createSubmission(body: unknown) {
   return submission;
 }
 
-export async function listSubmissions(projectCode: string, reviewStatus?: string) {
+export async function listSubmissions(
+  projectCode: string,
+  reviewStatus: string | undefined,
+  reviewerEmail: string | undefined,
+  limit = 50
+) {
   const filter: Record<string, unknown> = { projectCode };
   if (reviewStatus) filter.reviewStatus = reviewStatus;
-  return Submission.find(filter).sort({ createdAt: -1 }).lean();
+  if (reviewerEmail) filter.reviewerEmail = reviewerEmail;
+  return Submission.find(filter).sort({ createdAt: -1 }).limit(Math.min(Math.max(limit, 1), 200)).lean();
 }
 
 export async function reviewSubmission(
