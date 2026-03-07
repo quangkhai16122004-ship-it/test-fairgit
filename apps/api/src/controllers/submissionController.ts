@@ -14,7 +14,9 @@ export async function create(req: Request, res: Response) {
 export async function list(req: Request, res: Response) {
   const projectCode = String(req.query.projectCode ?? "");
   const reviewStatus = typeof req.query.reviewStatus === "string" ? req.query.reviewStatus : undefined;
-  const submissions = await service.listSubmissions(projectCode, reviewStatus);
+  const reviewerEmail = typeof req.query.reviewerEmail === "string" ? req.query.reviewerEmail : undefined;
+  const limit = typeof req.query.limit === "string" ? Number(req.query.limit) : undefined;
+  const submissions = await service.listSubmissions(projectCode, reviewStatus, reviewerEmail, limit);
   res.json(submissions);
 }
 

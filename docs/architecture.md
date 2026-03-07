@@ -8,6 +8,7 @@ CapstoneHub supports capstone teams from registration to milestone review.
 - Milestones
 - Submissions and review
 - Dashboard aggregation
+- Review queue filtering by reviewer and status
 
 ## Data model highlights
 - `projectCode` is used as tenant boundary for this simulation setup.
