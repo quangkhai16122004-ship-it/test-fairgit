@@ -13,7 +13,14 @@ export async function create(req: Request, res: Response) {
 }
 
 export async function list(_req: Request, res: Response) {
-  const projects = await service.listProjects();
+  const page = typeof _req.query.page === "string" ? Number(_req.query.page) : undefined;
+  const limit = typeof _req.query.limit === "string" ? Number(_req.query.limit) : undefined;
+  const search = typeof _req.query.search === "string" ? _req.query.search : undefined;
+
+  const projects =
+    typeof page === "number" && typeof limit === "number"
+      ? await service.listProjects({ page, limit, search })
+      : await service.listProjects();
   res.json(projects);
 }
 

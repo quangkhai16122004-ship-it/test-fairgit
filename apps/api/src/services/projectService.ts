@@ -27,8 +27,43 @@ export async function createProject(body: unknown, actorEmail = "system@capstone
   return project;
 }
 
-export async function listProjects() {
-  return Project.find().sort({ updatedAt: -1 }).lean();
+type ListProjectsInput = {
+  page: number;
+  limit: number;
+  search?: string;
+};
+
+export async function listProjects(input?: ListProjectsInput) {
+  if (!input) {
+    return Project.find().sort({ updatedAt: -1 }).lean();
+  }
+
+  const page = Math.max(1, input.page);
+  const limit = Math.min(Math.max(1, input.limit), 100);
+  const filter: Record<string, unknown> = {};
+  if (input.search) {
+    filter.$or = [
+      { code: { $regex: input.search, $options: "i" } },
+      { title: { $regex: input.search, $options: "i" } },
+      { teamName: { $regex: input.search, $options: "i" } },
+    ];
+  }
+
+  const [items, total] = await Promise.all([
+    Project.find(filter)
+      .sort({ updatedAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .lean(),
+    Project.countDocuments(filter),
+  ]);
+
+  return {
+    items,
+    page,
+    limit,
+    total,
+  };
 }
 
 export async function updateProjectProgress(code: string, progress: number, actorEmail = "system@capstonehub.dev") {
