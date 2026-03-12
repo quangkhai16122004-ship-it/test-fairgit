@@ -1,16 +1,32 @@
-﻿services:
+services:
   mongo:
     image: mongo:7
+    container_name: capstonehub-mongo
     ports:
       - "27018:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
 
   api:
     build: ../apps/api
+    container_name: capstonehub-api
     environment:
       PORT: 4300
       MONGO_URI: mongodb://mongo:27017/capstonehub
       CORS_ORIGIN: http://localhost:5174
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
     ports:
       - "4300:4300"
+
+  web:
+    build: ../apps/web
+    container_name: capstonehub-web
+    depends_on:
+      - api
+    ports:
+      - "5174:5174"

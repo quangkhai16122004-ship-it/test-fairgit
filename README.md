@@ -23,3 +23,8 @@ CapstoneHub is a student capstone project management platform for teams, supervi
 - API health: `GET http://localhost:4300/health`
 - Web app: `http://localhost:5174`
 
+## Docker
+```bash
+docker compose -f infra/docker-compose.yml up --build
+```
+
