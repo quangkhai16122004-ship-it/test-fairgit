@@ -11,6 +11,7 @@ import { dashboardRouter } from "./routes/dashboardRoutes.js";
 import { authRouter } from "./routes/authRoutes.js";
 import { memberRouter } from "./routes/memberRoutes.js";
 import { leaderboardRouter } from "./routes/leaderboardRoutes.js";
+import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 
 const app = express();
 app.use(cors({ origin: env.CORS_ORIGIN }));
@@ -28,6 +29,8 @@ app.use("/dashboard", dashboardRouter);
 app.use("/auth", authRouter);
 app.use("/members", memberRouter);
 app.use("/leaderboard", leaderboardRouter);
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 async function start() {
   await mongoose.connect(env.MONGO_URI);

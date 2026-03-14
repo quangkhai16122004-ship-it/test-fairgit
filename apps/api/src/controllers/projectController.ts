@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as service from "../services/projectService.js";
+import { toPositiveInt } from "../utils/pagination.js";
 
 export async function create(req: Request, res: Response) {
   try {
@@ -13,8 +14,8 @@ export async function create(req: Request, res: Response) {
 }
 
 export async function list(_req: Request, res: Response) {
-  const page = typeof _req.query.page === "string" ? Number(_req.query.page) : undefined;
-  const limit = typeof _req.query.limit === "string" ? Number(_req.query.limit) : undefined;
+  const page = typeof _req.query.page === "string" ? toPositiveInt(_req.query.page, 1) : undefined;
+  const limit = typeof _req.query.limit === "string" ? toPositiveInt(_req.query.limit, 20) : undefined;
   const search = typeof _req.query.search === "string" ? _req.query.search : undefined;
 
   const projects =

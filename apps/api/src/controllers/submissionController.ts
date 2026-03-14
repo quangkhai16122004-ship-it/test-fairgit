@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as service from "../services/submissionService.js";
+import { toPositiveInt } from "../utils/pagination.js";
 
 export async function create(req: Request, res: Response) {
   try {
@@ -15,7 +16,7 @@ export async function list(req: Request, res: Response) {
   const projectCode = String(req.query.projectCode ?? "");
   const reviewStatus = typeof req.query.reviewStatus === "string" ? req.query.reviewStatus : undefined;
   const reviewerEmail = typeof req.query.reviewerEmail === "string" ? req.query.reviewerEmail : undefined;
-  const limit = typeof req.query.limit === "string" ? Number(req.query.limit) : undefined;
+  const limit = typeof req.query.limit === "string" ? toPositiveInt(req.query.limit, 50) : undefined;
   const submissions = await service.listSubmissions(projectCode, reviewStatus, reviewerEmail, limit);
   res.json(submissions);
 }

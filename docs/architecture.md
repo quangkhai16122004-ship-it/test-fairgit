@@ -14,3 +14,6 @@ CapstoneHub supports capstone teams from registration to milestone review.
 ## Data model highlights
 - `projectCode` is used as tenant boundary for this simulation setup.
 - Submission is linked to `milestoneId` and reviewer state.
+
+## Runtime notes
+- Centralized error middleware standardizes API error payloads.
