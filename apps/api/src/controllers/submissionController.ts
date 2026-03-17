@@ -24,6 +24,10 @@ export async function list(req: Request, res: Response) {
 export async function review(req: Request, res: Response) {
   const id = String(req.params.id);
   const reviewStatus = req.body?.reviewStatus as "pending" | "approved" | "changes_requested";
+  if (!["pending", "approved", "changes_requested"].includes(reviewStatus)) {
+    res.status(400).json({ error: "Invalid reviewStatus" });
+    return;
+  }
   const score = typeof req.body?.score === "number" ? req.body.score : undefined;
   const reviewerEmail = String(req.headers["x-user-email"] ?? "reviewer@capstonehub.dev");
   const reviewNotes = typeof req.body?.reviewNotes === "string" ? req.body.reviewNotes : undefined;

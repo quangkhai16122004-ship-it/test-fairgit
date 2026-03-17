@@ -44,11 +44,11 @@ export async function reviewSubmission(
   reviewerEmail: string,
   reviewNotes: string | undefined
 ) {
-  const update: Record<string, unknown> = {
-    reviewStatus,
-    reviewerEmail,
-    reviewedAt: new Date(),
-  };
+  const update: Record<string, unknown> = { reviewStatus };
+  if (reviewStatus !== "pending") {
+    update.reviewerEmail = reviewerEmail;
+    update.reviewedAt = new Date();
+  }
   if (typeof score === "number") update.score = score;
   if (reviewNotes) update.reviewNotes = reviewNotes;
   const submission = await Submission.findByIdAndUpdate(id, update, { new: true }).lean();
