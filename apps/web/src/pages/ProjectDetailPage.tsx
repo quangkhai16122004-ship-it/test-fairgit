@@ -21,6 +21,7 @@ export function ProjectDetailPage() {
 
   const doneMilestones = milestones.filter((item) => item.status === "done").length;
   const reviewedSubmissions = submissions.filter((item) => item.reviewStatus !== "pending").length;
+  const orderedMilestones = [...milestones].sort((a, b) => a.dueDate.localeCompare(b.dueDate));
 
   return (
     <div className="grid">
@@ -66,12 +67,36 @@ export function ProjectDetailPage() {
             </tr>
           </thead>
           <tbody>
-            {milestones.map((item) => (
+            {orderedMilestones.map((item) => (
               <tr key={item._id}>
                 <td>{item.title}</td>
                 <td>{item.assigneeEmail}</td>
                 <td>{item.dueDate}</td>
                 <td>{item.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="card">
+        <h3 style={{ marginTop: 0 }}>Submission Snapshot</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th align="left">Title</th>
+              <th align="left">Contributor</th>
+              <th align="left">Review</th>
+              <th align="right">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {submissions.map((item) => (
+              <tr key={item._id}>
+                <td>{item.title}</td>
+                <td>{item.submittedBy}</td>
+                <td>{item.reviewStatus}</td>
+                <td align="right">{typeof item.score === "number" ? item.score : "-"}</td>
               </tr>
             ))}
           </tbody>
