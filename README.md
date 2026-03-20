@@ -28,3 +28,6 @@ CapstoneHub is a student capstone project management platform for teams, supervi
 docker compose -f infra/docker-compose.yml up --build
 ```
 
+## Demo Readiness
+- Use `docs/release-checklist.md` before demo presentation.
+
