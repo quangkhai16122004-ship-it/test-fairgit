@@ -31,7 +31,7 @@ export function LoginPage() {
 
   return (
     <form className="card grid" onSubmit={login} style={{ maxWidth: 520 }}>
-      <h3 style={{ margin: 0 }}>Project Login</h3>
+      <h3 style={{ margin: 0 }}>Team Login</h3>
       <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
       <select value={role} onChange={(e) => setRole(e.target.value as "student" | "supervisor" | "admin")}>
         <option value="student">student</option>
