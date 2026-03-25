@@ -29,5 +29,5 @@ docker compose -f infra/docker-compose.yml up --build
 ```
 
 ## Demo Readiness
-- Use `docs/release-checklist.md` before demo presentation.
+- Use `docs/release-checklist.md` before the demo presentation.
 
