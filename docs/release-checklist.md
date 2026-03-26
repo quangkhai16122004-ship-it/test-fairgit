@@ -6,5 +6,6 @@
 - [ ] Seed data command populates project data
 - [ ] Dashboard and Leaderboard pages render for CAPS-01
 - [ ] Review endpoint denies `student` role
+- [ ] Review endpoint accepts `supervisor` role
 - [ ] Project list supports search and paging params
 - [ ] Smoke test: create project -> create milestone -> create submission
