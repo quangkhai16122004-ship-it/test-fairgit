@@ -10,4 +10,6 @@ const authSessionSchema = new Schema(
   { timestamps: true }
 );
 
+authSessionSchema.index({ expiredAt: 1 }, { expireAfterSeconds: 0 });
+
 export const AuthSession = mongoose.model("AuthSession", authSessionSchema);

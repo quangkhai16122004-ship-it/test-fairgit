@@ -18,5 +18,6 @@ const submissionSchema = new Schema(
 );
 
 submissionSchema.index({ projectCode: 1, reviewStatus: 1, createdAt: -1 });
+submissionSchema.index({ reviewerEmail: 1, reviewedAt: -1 });
 
 export const Submission = mongoose.model("Submission", submissionSchema);
