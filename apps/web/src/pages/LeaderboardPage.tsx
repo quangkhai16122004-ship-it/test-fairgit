@@ -36,7 +36,7 @@ export function LeaderboardPage() {
             {rows.map((row, index) => (
               <tr key={row.email}>
                 <td>
-                  #{index + 1} {row.email}
+                  <span className={`rank-pill rank-${Math.min(index + 1, 4)}`}>#{index + 1}</span> {row.email}
                 </td>
                 <td align="right">{row.submissionCount}</td>
                 <td align="right">{row.reviewedCount}</td>
