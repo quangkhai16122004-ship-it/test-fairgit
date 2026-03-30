@@ -30,4 +30,5 @@ docker compose -f infra/docker-compose.yml up --build
 
 ## Demo Readiness
 - Use `docs/release-checklist.md` before the demo presentation.
+- Team profile used for simulation: `docs/simulated-team.md`.
 
