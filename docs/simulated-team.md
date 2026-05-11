@@ -15,7 +15,7 @@
 - Week 5-6: leaderboard, pagination, docker, tests, polish.
 
 ## Intended FairGit signal
-- High consistency & impact: Khoa, Lan Anh, Huy
-- Medium consistency & impact: Bao, Mai
-- Low clean score / noisy commits: Dat
-- Late burst contributor: Linh
+- High consistency & impact: Khoa (100), Lan Anh (91), Huy (84)
+- Medium consistency & impact: Bao (79), Mai (73)
+- Low clean score / noisy commits: Dat (61)
+- Late burst contributor: Linh (32)
