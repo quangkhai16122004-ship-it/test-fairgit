@@ -1,9 +1,10 @@
-﻿import { Request, Response } from "express";
+import { Request, Response } from "express";
 import * as service from "../services/milestoneService.js";
 
 export async function create(req: Request, res: Response) {
   try {
-    const milestone = await service.createMilestone(req.body);
+    const actorEmail = String(req.headers["x-user-email"] ?? "system@capstonehub.dev");
+    const milestone = await service.createMilestone(req.body, actorEmail);
     res.status(201).json(milestone);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Bad request";
@@ -20,6 +21,7 @@ export async function list(req: Request, res: Response) {
 export async function setStatus(req: Request, res: Response) {
   const id = String(req.params.id);
   const status = req.body?.status as "todo" | "in_progress" | "blocked" | "done";
-  const milestone = await service.setMilestoneStatus(id, status);
+  const actorEmail = String(req.headers["x-user-email"] ?? "system@capstonehub.dev");
+  const milestone = await service.setMilestoneStatus(id, status, actorEmail);
   res.json(milestone);
 }

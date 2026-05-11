@@ -1,5 +1,6 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 import { Submission } from "../models/Submission.js";
+import { writeActivity } from "./activityLogService.js";
 
 const CreateSubmissionSchema = z.object({
   projectCode: z.string().min(2),
@@ -12,15 +13,56 @@ const CreateSubmissionSchema = z.object({
 
 export async function createSubmission(body: unknown) {
   const input = CreateSubmissionSchema.parse(body);
-  return Submission.create(input);
+  const submission = await Submission.create(input);
+  await writeActivity({
+    projectCode: input.projectCode,
+    actorEmail: input.submittedBy,
+    action: "submission.created",
+    entityType: "submission",
+    entityId: String(submission._id),
+    detail: `Submission ${submission.title} created`,
+  });
+  return submission;
 }
 
-export async function listSubmissions(projectCode: string) {
-  return Submission.find({ projectCode }).sort({ createdAt: -1 }).lean();
+export async function listSubmissions(
+  projectCode: string,
+  reviewStatus: string | undefined,
+  reviewerEmail: string | undefined,
+  limit = 50
+) {
+  const filter: Record<string, unknown> = { projectCode };
+  if (reviewStatus) filter.reviewStatus = reviewStatus;
+  if (reviewerEmail) filter.reviewerEmail = reviewerEmail;
+  return Submission.find(filter).sort({ createdAt: -1 }).limit(Math.min(Math.max(limit, 1), 200)).lean();
 }
 
-export async function reviewSubmission(id: string, reviewStatus: "pending" | "approved" | "changes_requested", score?: number) {
+export async function reviewSubmission(
+  id: string,
+  reviewStatus: "pending" | "approved" | "changes_requested",
+  score: number | undefined,
+  reviewerEmail: string,
+  reviewNotes: string | undefined
+) {
   const update: Record<string, unknown> = { reviewStatus };
+  if (reviewStatus !== "pending") {
+    update.reviewerEmail = reviewerEmail;
+    update.reviewedAt = new Date();
+  }
   if (typeof score === "number") update.score = score;
-  return Submission.findByIdAndUpdate(id, update, { new: true }).lean();
+  if (reviewNotes) update.reviewNotes = reviewNotes;
+  const submission = await Submission.findByIdAndUpdate(id, update, { new: true }).lean();
+
+  if (submission) {
+    await writeActivity({
+      projectCode: String(submission.projectCode),
+      actorEmail: reviewerEmail,
+      action: "submission.reviewed",
+      entityType: "submission",
+      entityId: String(submission._id),
+      detail: `Review status changed to ${reviewStatus}`,
+    });
+  }
+
+  return submission;
 }

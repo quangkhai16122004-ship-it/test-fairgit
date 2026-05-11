@@ -1,11 +1,13 @@
-﻿body {
+body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
   background: #f4f6f8;
   color: #102030;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 .layout {
   max-width: 1180px;
@@ -16,11 +18,136 @@
 .card {
   background: white;
   border: 1px solid #dde2e8;
-  border-radius: 14px;
+  border-radius: 12px;
   padding: 16px;
 }
 
 .grid {
   display: grid;
   gap: 12px;
+}
+
+.kpi-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+input,
+select,
+button,
+textarea {
+  border: 1px solid #c7d0da;
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-size: 14px;
+}
+
+button {
+  background: #1f355f;
+  color: #fff;
+  border-color: #1f355f;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 10px 8px;
+}
+
+.table tbody tr {
+  border-top: 1px solid #eef2f6;
+}
+
+.status-chip {
+  border-radius: 999px;
+  font-size: 11px;
+  text-transform: capitalize;
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+}
+
+.status-planning {
+  background: #f7f4ea;
+  border-color: #ecd79a;
+  color: #755e1f;
+}
+
+.status-active {
+  background: #eaf4fe;
+  border-color: #9dc3e6;
+  color: #1f4b7a;
+}
+
+.status-review {
+  background: #eef0fc;
+  border-color: #bec8f5;
+  color: #3d4f9b;
+}
+
+.status-done {
+  background: #eaf8ef;
+  border-color: #9ed7af;
+  color: #1f6d39;
+}
+
+.progress-track {
+  height: 7px;
+  background: #eef2f6;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3e75c3, #4b9da3);
+}
+
+.empty-hint {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #5f6b7a;
+}
+
+.rank-pill {
+  display: inline-block;
+  min-width: 34px;
+  text-align: center;
+  border-radius: 999px;
+  padding: 2px 7px;
+  font-size: 11px;
+  margin-right: 6px;
+  border: 1px solid #c9d2df;
+}
+
+.rank-1 {
+  background: #f8f1d7;
+  border-color: #ddc67c;
+}
+
+.rank-2 {
+  background: #eef2f8;
+  border-color: #c2d0e2;
+}
+
+.rank-3 {
+  background: #f3ece5;
+  border-color: #d8bda5;
+}
+
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
